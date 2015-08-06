@@ -20,7 +20,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST")
 }
 else
 {
-	echo $result="Method is not POST";
+	echo $result="Method is not POST";//added result by pallavi
 }
 
 ?>

@@ -11,6 +11,11 @@ body.nav-sm .container.body .left_col {
 	color: #ff0000;
 }
 
+.success
+{
+	color: #3FC1A5;
+}
+
 body.nav-sm .container.body .right_col {
     padding: 10px 20px;
     margin-left: 70px;
@@ -5756,7 +5761,6 @@ form:after {
     padding: 25px 0 0;
     position: relative;
     text-align: center;
-    text-shadow: 0 1px 0 #fff;
     min-width: 280px;
 }
 .login_content h1 {

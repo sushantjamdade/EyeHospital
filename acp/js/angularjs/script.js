@@ -65,5 +65,36 @@ ChangePwd.controller("ChangePwdController", function ($scope, $http, jsonFilter)
 
 //Change Password Module Ends Here
 
+//hospital add form Module Starts Here
 
+var hospit = angular.module("HospitalModule", [])
+hospit.controller("HospitalController", function ($scope, $http, jsonFilter) {
+	
+	var logResult = function (data, status, headers, config) {
+		return data;
+	};
+	
+	$scope.submitData = function (UHospital) {
+		var config = {
+			params: {
+				UHospital: UHospital
+			}
+		};
+		
+		$http.post("", null, config)
+		.success(function (data, status, headers, config) {			
+			console.log(data);
+			$scope.getChangePwdResult = logResult(data, status, headers, config);
+			if(data == "Success") {
+				window.location.href = '';
+			}
+		})
+		
+		.error(function (data, status, headers, config) {
+			$scope.getChangePwdResult = logResult(data, status, headers, config);
+		});
+	};
+});
+
+//Add hopital Module Ends Here
 

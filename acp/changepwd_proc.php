@@ -1,4 +1,6 @@
 <?php
+//Created by: ManyaSK
+//Date: 06-August-2015
 error_reporting(0);
 session_start();
 if($_SESSION['apid']=="")

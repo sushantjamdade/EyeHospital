@@ -1,4 +1,6 @@
 <?php
+//Created by: ManyaSK
+//Date: 06-August-2015
 session_start();
 if($_SESSION['apid']=="")
 {
@@ -39,9 +41,9 @@ else
                                 </div>
                                 <div class="x_content">
                                     <form class="form-horizontal form-label-left" id="demo-form2" autocomplete="off" enctype="multipart/form-data" name="UChangePwdForm" ng-submit="submitData(UChangePwd)" novalidate>
-										<center><strong class="error">{{getChangePwdResult}}</strong></center>
+										<center><strong class="error" ng-hide="contentLoaded">{{getChangePwdResult}}</strong></center>
 										<p>&nbsp;</p>
-										<div class="alert alert-success alert-dismissible fade in" ng-show="" role="alert">
+										<div class="alert alert-success alert-dismissible fade in" ng-show="contentLoaded" role="alert">
 											<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
 											<strong>Password changed successfully.</strong>
 										</div>
@@ -81,7 +83,7 @@ else
                                         <div class="ln_solid"></div>
                                         <div class="form-group">
                                             <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
-                                                <input type="submit" name="submit" id="submit" value="Change Password" class="btn btn-success" ng-disabled="UChangePwd.$invalid" />
+                                                <input type="submit" name="submit" id="submit" value="Change Password" class="btn btn-success" ng-disabled="UChangePwdForm.$invalid" />
 												<input type="submit" name="cancel" id="cancel" value="Cancel" class="btn btn-primary" onclick="window.location.href='welcome.php';" />
                                             </div>
                                         </div>

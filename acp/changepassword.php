@@ -84,7 +84,7 @@ else
                                         <div class="form-group">
                                             <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
                                                 <input type="submit" name="submit" id="submit" value="Change Password" class="btn btn-success" ng-disabled="UChangePwdForm.$invalid" />
-												<input type="submit" name="cancel" id="cancel" value="Cancel" class="btn btn-primary" onclick="window.location.href='welcome.php';" />
+												<input type="button" name="cancel" id="cancel" value="Cancel" class="btn btn-primary" onclick="window.location.href='welcome.php';" />
                                             </div>
                                         </div>
 

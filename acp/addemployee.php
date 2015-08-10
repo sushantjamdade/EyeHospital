@@ -63,7 +63,7 @@ else
 										<div class="form-group">
 										<label class="control-label col-md-3 col-sm-3 col-xs-12">Date Of Birth </label>
 										<div class="col-md-6 col-sm-6 col-xs-12">
-                                       <input id="birthday" class="date-picker form-control" placeholder="Date Of Birth" required="required" type="text" ng-model="UEmployee.dob">
+                                       <input id="birthday" class="date-picker form-control" placeholder="Date Of Birth" required="required" title="Date" ui-date ui-date-format="mm-dd-yy" ng-model="UEmployee.dob">
 									   </div>
                                             </div>
 										
@@ -82,7 +82,7 @@ else
 										<div class="form-group">
 										<label class="control-label col-md-3 col-sm-3 col-xs-12">Date Of Joining </label>
 										<div class="col-md-6 col-sm-6 col-xs-12">
-                                       <input id="Joining" class="date-picker form-control" placeholder="Date Of Joining" required="required" type="text" ng-model="UEmployee.doj">
+                                       <input id="Joining" class="date-picker form-control" placeholder="Date Of Joining" required="required" title="Date" ui-date  ng-model="UEmployee.doj">
 									   </div>
                                             </div>
                                         <div class="form-group">

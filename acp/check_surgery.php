@@ -23,12 +23,7 @@ if (mysql_num_rows($sql)>0) {
 	  
 	  
   }
-  else
-	{
-		
-        $response_array= '';
-		echo json_encode($response_array);
-	}
+  
   }  
 	  else
   {

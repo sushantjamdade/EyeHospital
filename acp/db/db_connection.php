@@ -2,9 +2,9 @@
 	date_default_timezone_set('Asia/Calcutta');
 
 	$host ="localhost";
-	$db_name = "eyehospital";
+	$db_name = "wireframes";
 	$db_username = "root";
-	$db_password = "";
+	$db_password = "root";
 		
 	$dbConnection = new PDO("mysql:dbname=$db_name;host=$host;charset=utf8", "$db_username", "$db_password");	
 	$dbConnection->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);	

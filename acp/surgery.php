@@ -50,18 +50,19 @@ else
                                         <div class="form-group">
                                             <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">Surgergy Name</label>
                                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                                <input type="text" class="form-control col-md-7 col-xs-12"  autofocus placeholder="Desgnation." required name="name" id="name" ng-model="USurgery.name" ng-minlength="3" ng-maxlength="20" />
+                                                <input type="text" class="form-control col-md-7 col-xs-12"  autofocus placeholder="Surgery Name." required name="name" id="name" ng-change="changeSurgery(USurgery)" ng-model="USurgery.name" ng-minlength="3" ng-maxlength="20" />
 												<div class="error" ng-show="SurgeryForm.name.$dirty && SurgeryForm.name.$invalid">
 													<small class="error" ng-show="SurgeryForm.name.$error.required">name is required.</small>
 													<small class="error" ng-show="SurgeryForm.name.$error.minlength">name is required to be at least 3 characters</small>
 													
 												</div>
+												<div>{{getChangeSurgery}}</div>
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <label class="control-label col-md-3 col-sm-3 col-xs-12" for="address">Description</label>
                                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                                <textarea class="form-control col-md-7 col-xs-12" placeholder="Address." name="address" id="address" ng-model="USurgery.address"></textarea>
+                                                <textarea class="form-control col-md-7 col-xs-12" placeholder="Description." name="address" id="address" ng-model="USurgery.address"></textarea>
                                             </div>
                                         </div>
                                          <div class="form-group">

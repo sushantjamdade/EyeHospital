@@ -61,7 +61,7 @@ else
                                         <div class="form-group">
                                             <label class="control-label col-md-3 col-sm-3 col-xs-12" for="address">Description</label>
                                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                                <textarea class="form-control col-md-7 col-xs-12" placeholder="Address." name="address" id="address" ng-model="UDesign.address"></textarea>
+                                                <textarea class="form-control col-md-7 col-xs-12" placeholder="Description." name="address" id="address" ng-model="UDesign.address"></textarea>
                                             </div>
                                         </div>
                                 

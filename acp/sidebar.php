@@ -30,7 +30,7 @@
 								<li><a href="branch.php">Branch</a></li>
 								<li><a href="specialization.php">Specialization</a></li>
 								<li><a href="surgery.php">Surgery</a></li>
-								<li><a href="#">Widgets</a></li>
+								<li><a href="addemployee.php">Employee</a></li>
 								<li><a href="#">Invoice</a></li>
 								<li><a href="#">Inbox</a></li>
 								<li><a href="#">Calender</a></li>

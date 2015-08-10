@@ -1,5 +1,5 @@
 <?php
-//Created by: ManyaSK
+//Created by: pallavi
 //Date: 06-August-2015
 session_start();
 if($_SESSION['apid']=="")

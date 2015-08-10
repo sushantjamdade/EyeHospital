@@ -1,5 +1,5 @@
 <?php
-//Created by: ManyaSK
+//Created by: pallavi
 //Date: 06-August-2015
 session_start();
 if($_SESSION['apid']=="")
@@ -61,7 +61,7 @@ else
                                         <div class="form-group">
                                             <label class="control-label col-md-3 col-sm-3 col-xs-12" for="address">Address</label>
                                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                                <textarea class="form-control col-md-7 col-xs-12" name="address" id="address" ng-model="UHospital.address"></textarea>
+                                                <textarea class="form-control col-md-7 col-xs-12" placeholder="Address" name="address" id="address" ng-model="UHospital.address"></textarea>
                                             </div>
                                         </div>
                                         <div class="form-group">
@@ -107,7 +107,7 @@ else
 											<div class="form-group">
                                             <label class="control-label col-md-3 col-sm-3 col-xs-12" for="phno">Phone number</label>
                                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                                <input  type="number" class="form-control col-md-7 col-xs-12"  ng-pattern="/^[0-9]*$/" placeholder="Phone number" required name="phno" id="phno" ng-model="UHospital.phno"  ng-minlength="10" ng-maxlength="10" />
+                                                <input  type="tel" class="form-control col-md-7 col-xs-12"  ng-pattern="/^[0-9]*$/" placeholder="Phone number" required name="phno" id="phno" ng-model="UHospital.phno"  ng-minlength="10" ng-maxlength="10" />
 											<div class="error" ng-show="HospitalForm.phno.$dirty && HospitalForm.phno.$invalid">
 													<small class="error" ng-show="HospitalForm.phno.$error.required">Phone number is required.</small>
 													<small class="error" ng-show="HospitalForm.phno.$error.minlength">Phone number not less than 10</small>

@@ -87,7 +87,7 @@ ChangePwd.controller("ChangePwdController", function ($scope, $http, jsonFilter)
 var hospit = angular.module("HospitalModule", [])
 hospit.controller("HospitalController", function ($scope, $http, jsonFilter) {
 	
-	$scope.url = 'hospital_proc.php';
+	//$scope.url = 'hospital_proc.php';
 	var logResult = function (data, status, headers, config) {
 		return data;
 	};
@@ -105,7 +105,7 @@ hospit.controller("HospitalController", function ($scope, $http, jsonFilter) {
 			}
 		};
 		
-		$http.post($scope.url, null, config)
+		$http.post("hospital_proc.php", null, config)
 		.success(function (data, status, headers, config) {	
             //data = jsonFilter(data);
 			$scope.getHospitalResult = logResult(data, status, headers, config);
@@ -332,7 +332,7 @@ specialization.controller("SurgeryController", function ($scope, $http, jsonFilt
 	
 	$scope.url='surgery_proc.php';
 	var logResult = function (data, status, headers, config) {
-		return data;
+		return  data ;
 	};
 	
 	$scope.submitData = function (USurgery) {
@@ -379,6 +379,111 @@ specialization.controller("SurgeryController", function ($scope, $http, jsonFilt
 		
 	};
 	
+	
+	//function to check the uniqueness of the surgery name
+	
+	$scope.changeSurgery=function(USurgery){
+		var config = {
+        params: {
+          USurgery: USurgery
+        }
+      };
+		  $http.post("check_surgery.php",null,config).success(function (data, status, headers, config) {
+			  
+			  //data = jsonFilter(data);
+        $scope.getChangeSurgery = logResult(data, status, headers, config);
+    });
+		
+		
+	};
+	
 });
 
 //Add Surgeryform Module Ends Here
+
+
+
+//created by:pallavi
+//10-AUG-15
+//add employee Module Starts Here
+
+var employee = angular.module("EmployeeModule", [])
+employee.controller("EmployeeController", function ($scope, $http, jsonFilter) {
+	
+	$scope.url='addemployee_proc.php';
+	var logResult = function (data, status, headers, config) {
+		return data;
+	};
+	
+	$scope.submitData = function (UEmployee) {
+		
+		var answer = confirm("Do you want to Submit?")
+		if (!answer) {
+			alert ("Hi");
+		}
+		else{
+			
+		var config = {
+			params: {
+				UEmployee: UEmployee
+			}
+		};
+		
+		$http.post($scope.url, null, config)
+		.success(function (data, status, headers, config) {	
+           // data = jsonFilter(data);
+			$scope.getEmployeeResult = logResult(data, status, headers, config);
+			
+		})
+		
+		.error(function (data, status, headers, config) {
+			$scope.getEmployeeResult = logResult(data, status, headers, config);
+		});
+		}
+	};
+	
+	
+	$scope.cancelData=function()
+	{
+		var agree=confirm("Do you want to Cancel?");
+		
+		if(agree)
+		{
+			alert("hi");
+		}
+		else
+		{
+			alert("hello");
+			
+		}
+		
+	};
+	
+	//dropdown for designation
+	$scope.selectedDesignation = null;
+    $scope.designAccounts = [];
+
+    $http({
+            method: 'GET',
+            url: 'get_designation.php',
+            data: { applicationId: 3 }
+        }).success(function (result) {
+        $scope.designAccounts = result;
+    });
+    
+	
+	//dropdown for Specialization
+	$scope.selectedSpecial = null;
+    $scope.specialAccounts = [];
+
+    $http({
+            method: 'GET',
+            url: 'get_specialisation.php',
+            data: { applicationId: 3 }
+        }).success(function (result) {
+        $scope.specialAccounts = result;
+    });
+	
+});
+
+//Add Employee Module Ends Here

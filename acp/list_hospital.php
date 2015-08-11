@@ -43,14 +43,16 @@ else
 								<table border=1 class="table table-striped table-condensed table-hover">
 <thead>
 <th>S.NO&nbsp;<a ng-click="sort_by('id')"><i class="icon-sort"></i></a></th>
-<th>Product Name&nbsp;<a ng-click="sort_by('name')"><i class="icon-sort"></i></a></th>
-<th>Product Description&nbsp;<a ng-click="sort_by('description')"><i class="icon-sort"></i></a></th>
-<th>Product Price&nbsp;<a ng-click="sort_by('field3')"><i class="icon-sort"></i></a></th>
-<th>Product Quantity&nbsp;<a ng-click="sort_by('field4')"><i class="icon-sort"></th> 
+<th>Hospital Name&nbsp;<a ng-click="sort_by('name')"><i class="icon-sort"></i></a></th>
+<th>Address&nbsp;<a ng-click="sort_by('description')"><i class="icon-sort"></i></a></th>
+<th>City&nbsp;<a ng-click="sort_by('field3')"><i class="icon-sort"></i></a></th>
+<th>EmailId&nbsp;<a ng-click="sort_by('field4')"><i class="icon-sort"></th> 
+<th>Mobile&nbsp;<a ng-click="sort_by('field4')"><i class="icon-sort"></th> 
+<th>Username&nbsp;<a ng-click="sort_by('field4')"><i class="icon-sort"></th> 
 <th>Action&nbsp;<a ng-click="sort_by('field5')"><i class="icon-sort"></i></a></th> 
 </thead> 
 <tfoot>
-<td colspan="6">
+<td colspan="9">
 <div class="pagination pull-right">
 <ul>
 <li ng-class="{disabled: currentPage == 0}">
@@ -69,19 +71,29 @@ ng-click="setPage()">
 </td>
 </tfoot>
 <tbody ng-init="get_product()">
-<tr ng-repeat="product in pagedItems">
+<tr ng-repeat="hospital in pagedItems">
 <td>{{ $index+1 }}</td>
-<td>{{ product.prod_name | uppercase }}</td>
-<td>{{ product.prod_desc }}</td> 
-<td>{{ product.prod_price }}</td>
+<td>{{ hospital.hospital_name | uppercase }}</td>
+<td>{{ hospital.Address }}</td> 
+<td>{{ hospital.City }}</td>
+<td>{{ hospital.email_id }}</td>
+<td>{{ hospital.phone_no }}</td>
+<td>{{ hospital.user_name }}</td>
 
-<td>{{ product.prod_quantity }}</td>
 
 <td><a href="" ng-click="prod_edit(product.id)">Edit</a> | <a href="" ng-click="prod_delete(product.id)">Delete</a></td>
 </tr> 
 </tbody>
 </table>
-
+ <!-- footer content -->
+					<?php include_once ("footer.php"); ?>
+                <!-- /footer content -->
+            </div>
+            <!-- /page content -->
+        </div>
+		<script src="js/bootstrap.min.js"></script>
+		<script src="js/custom.js"></script>
+		</html>
 <?php
 }
 ?>

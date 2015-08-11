@@ -156,8 +156,7 @@ hospitallist.controller("ListHospitalController", function ($scope, $http) {
         $scope.pagedItems = data;    
         $scope.currentPage = 1; //current page
         $scope.entryLimit = 5; //max no of items to display in a page
-        $scope.filteredItems = $scope.pagedItems.length; //Initially for no filter  
-        $scope.totalItems = $scope.pagedItems.length;
+        
  
     });
     }

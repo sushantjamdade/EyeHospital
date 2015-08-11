@@ -1,7 +1,7 @@
 <?php
  
 mysql_connect("localhost","root","root") or die(mysql_error());
-mysql_select_db("androidhive");
+mysql_select_db("wireframes");
  
 /** Switch Case to Get Action from controller **/
  
@@ -56,16 +56,20 @@ $jsn = json_encode($arr);
 /** Function to Get Product **/
  
 function get_product() { 
-$qry = mysql_query('SELECT * from products');
+$qry = mysql_query('SELECT * from hospital_master');
 $data = array();
 while($rows = mysql_fetch_array($qry))
 {
 $data[] = array(
-"id" => $rows['pid'],
-"prod_name" => $rows['name'],
-"prod_desc" => $rows['description'],
-"prod_price" => $rows['price'],
-"prod_quantity" => $rows['quantity']
+"id" => $rows['hospital_Id'],
+"hospital_name" => $rows['hospital_name'],
+"Address" => $rows['Address'],
+"City" => $rows['City'],
+"State" => $rows['State'],
+"pin_code" => $rows['pin_code'],
+"email_id" => $rows['email_id'],
+"phone_no" => $rows['phone_no'],
+"user_name" => $rows['user_name']
 );
 }
 echo (json_encode($data));

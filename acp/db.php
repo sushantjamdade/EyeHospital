@@ -56,6 +56,7 @@ $jsn = json_encode($arr);
 /** Function to Get Product **/
  
 function get_product() { 
+ 
 $qry = mysql_query('SELECT * from hospital_master');
 $data = array();
 while($rows = mysql_fetch_array($qry))
@@ -71,7 +72,12 @@ $data[] = array(
 "phone_no" => $rows['phone_no'],
 "user_name" => $rows['user_name']
 );
+
+
 }
+
+
+
 echo (json_encode($data));
 return json_encode($data); 
 }

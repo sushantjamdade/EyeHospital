@@ -152,6 +152,7 @@ hospitallist.controller("ListHospitalController", function ($scope, $http) {
 	$scope.get_product = function(){
     $http.get("db.php?action=get_product").success(function(data)
     {
+		
         //$scope.product_detail = data;   
         $scope.pagedItems = data;    
         $scope.currentPage = 1; //current page

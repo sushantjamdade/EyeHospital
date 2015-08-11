@@ -37,7 +37,9 @@ else
                         <div class="col-md-12 col-sm-12 col-xs-12">
                             <div class="x_panel">
                                 <div class="x_title">
-                                    <h3>Hospital List</h3>
+                                    
+									<h4 class="pull-left">List of Hospital</h4>
+									<p class="pull-right"><a class="btn btn-success btn-sm" href="hospital.php"><i class="fa fa-plus"></i> Add Hospital</a>&nbsp;&nbsp;&nbsp;</p>	
                                     <div class="clearfix"></div>
                                 </div>
 								<table border=1 class="table table-striped table-condensed table-hover">
@@ -48,7 +50,7 @@ else
 <th>City&nbsp;<a ng-click="sort_by('field3')"><i class="icon-sort"></i></a></th>
 <th>EmailId&nbsp;<a ng-click="sort_by('field4')"><i class="icon-sort"></th> 
 <th>Mobile&nbsp;<a ng-click="sort_by('field4')"><i class="icon-sort"></th> 
-<th>Username&nbsp;<a ng-click="sort_by('field4')"><i class="icon-sort"></th> 
+
 <th>Action&nbsp;<a ng-click="sort_by('field5')"><i class="icon-sort"></i></a></th> 
 </thead> 
 <tfoot>
@@ -78,7 +80,7 @@ ng-click="setPage()">
 <td>{{ hospital.City }}</td>
 <td>{{ hospital.email_id }}</td>
 <td>{{ hospital.phone_no }}</td>
-<td>{{ hospital.user_name }}</td>
+
 
 
 <td><a href="" ng-click="prod_edit(product.id)">Edit</a> | <a href="" ng-click="prod_delete(product.id)">Delete</a></td>

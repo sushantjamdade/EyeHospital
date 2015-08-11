@@ -109,6 +109,9 @@ hospit.controller("HospitalController", function ($scope, $http, jsonFilter) {
 		.success(function (data, status, headers, config) {	
             //data = jsonFilter(data);
 			$scope.getHospitalResult = logResult(data, status, headers, config);
+			{
+				window.location.href="list_hospital.php";
+			}
 			
 		})
 		
@@ -139,6 +142,29 @@ hospit.controller("HospitalController", function ($scope, $http, jsonFilter) {
 
 // hospital Module Ends Here
 
+
+//created by:pallavi
+//List of Hospital Starts Here
+//11.8.15
+var hospitallist = angular.module("ListHospitalModule", [])
+hospitallist.controller("ListHospitalController", function ($scope, $http) {
+	
+	$scope.get_product = function(){
+    $http.get("db.php?action=get_product").success(function(data)
+    {
+        //$scope.product_detail = data;   
+        $scope.pagedItems = data;    
+        $scope.currentPage = 1; //current page
+        $scope.entryLimit = 5; //max no of items to display in a page
+        $scope.filteredItems = $scope.pagedItems.length; //Initially for no filter  
+        $scope.totalItems = $scope.pagedItems.length;
+ 
+    });
+    }
+	
+});
+
+//list of hospital ends here
 
 //created by:pallavi
 //Designation add form Module Starts Here
@@ -327,8 +353,8 @@ specialization.controller("SpecializationController", function ($scope, $http, j
 //created by:pallavi
 //Surgeryform Module Starts Here
 
-var specialization = angular.module("SurgeryModule", [])
-specialization.controller("SurgeryController", function ($scope, $http, jsonFilter) {
+var surgery = angular.module("SurgeryModule", [])
+surgery.controller("SurgeryController", function ($scope, $http, jsonFilter) {
 	
 	$scope.url='surgery_proc.php';
 	var logResult = function (data, status, headers, config) {
@@ -361,6 +387,8 @@ specialization.controller("SurgeryController", function ($scope, $http, jsonFilt
 		});
 		}
 	};
+	
+	
 	
 	
 	$scope.cancelData=function()
@@ -410,6 +438,9 @@ specialization.controller("SurgeryController", function ($scope, $http, jsonFilt
 var employee = angular.module("EmployeeModule", [])
 employee.controller("EmployeeController", function ($scope, $http, jsonFilter) {
 	
+	
+	
+	
 	$scope.url='addemployee_proc.php';
 	var logResult = function (data, status, headers, config) {
 		return data;
@@ -433,6 +464,7 @@ employee.controller("EmployeeController", function ($scope, $http, jsonFilter) {
 		.success(function (data, status, headers, config) {	
            // data = jsonFilter(data);
 			$scope.getEmployeeResult = logResult(data, status, headers, config);
+			
 			
 		})
 		

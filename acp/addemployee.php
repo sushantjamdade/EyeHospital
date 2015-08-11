@@ -12,12 +12,13 @@ else
 	$apid = $_SESSION['apid'];
 ?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" >
 	<head>
 		<?php include_once ("title.php"); ?>
 		<!-- AngularJS core CSS -->
 		<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
 		<script src="js/angularjs/script.js"></script>
+	
 		
 	</head>
 	<body class="nav-md" ng-app="EmployeeModule">
@@ -63,7 +64,14 @@ else
 										<div class="form-group">
 										<label class="control-label col-md-3 col-sm-3 col-xs-12">Date Of Birth </label>
 										<div class="col-md-6 col-sm-6 col-xs-12">
-                                       <input id="birthday" class="date-picker form-control" placeholder="Date Of Birth" required="required" title="Date" ui-date ui-date-format="mm-dd-yy" ng-model="UEmployee.dob">
+                                       <input type="text" class="form-control" datepicker-popup="{{format}}" name="dob" required placeholder="Date Of Birth" ng-model="UEmployee.dob" is-open="opened" datepicker-options="dateOptions" ng-required="true" close-text="Close" />
+                                      <button type="button" class="btn btn-default" ng-click="open($event)"><i class="fa fa-calendar"></i>
+                                            </button> 
+                                     <div class="error" ng-show="EmployeeForm.dob.$dirty && EmployeeForm.dob.$invalid">
+													<small class="error" ng-show="EmployeeForm.dob.$error.required">name is required.</small>
+													
+													
+												</div>											
 									   </div>
                                             </div>
 										
@@ -82,7 +90,7 @@ else
 										<div class="form-group">
 										<label class="control-label col-md-3 col-sm-3 col-xs-12">Date Of Joining </label>
 										<div class="col-md-6 col-sm-6 col-xs-12">
-                                       <input id="Joining" class="date-picker form-control" placeholder="Date Of Joining" required="required" title="Date" ui-date  ng-model="UEmployee.doj">
+                                       <input id="Joining" class="date-picker form-control" placeholder="Date Of Joining" required="required" title="Date" ui-date ui-date-format="mm-dd-yy" ng-model="UEmployee.doj">
 									   </div>
                                             </div>
                                         <div class="form-group">
@@ -202,44 +210,10 @@ else
             </div>
             <!-- /page content -->
         </div>
-		<!-- daterangepicker -->
-							<script type="text/javascript">
-						$(document).ready(function () {
-							$('#birthday').daterangepicker({
-								singleDatePicker: true,
-								calender_style: "picker_4"
-							}, function (start, end, label) {
-								console.log(start.toISOString(), end.toISOString(), label);
-							});
-							
-							$('#Joining').daterangepicker({
-								singleDatePicker: true,
-								calender_style: "picker_4"
-							}, function (start, end, label) {
-								console.log(start.toISOString(), end.toISOString(), label);
-							});
-							
-						});
-					</script>
-						<script type="text/javascript">
-						$(document).ready(function () {
-							
-							
-							$('#Joining').daterangepicker({
-								singleDatePicker: true,
-								calender_style: "picker_4"
-							}, function (start, end, label) {
-								console.log(start.toISOString(), end.toISOString(), label);
-							});
-							
-						});
-					</script>
+		
+						
 
 
-		<!-- daterangepicker -->
-		<script type="text/javascript" src="js/moment.min2.js"></script>
-		<script type="text/javascript" src="js/datepicker/daterangepicker.js"></script>
-		<!-- daterangepicker -->
 		
 		<script src="js/bootstrap.min.js"></script>
 		<script src="js/custom.js"></script>

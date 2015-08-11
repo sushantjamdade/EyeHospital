@@ -18,6 +18,7 @@ else
 		<!-- AngularJS core CSS -->
 		<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
 		<script src="js/angularjs/script.js"></script>
+		
 	</head>
 	<body class="nav-md" ng-app="SurgeryModule">
 		<div class="container body" ng-controller="SurgeryController">
@@ -84,6 +85,8 @@ else
                                             </div>
 											
                                         </div>
+<br/>
+<br/>
 
                                     </form>
                                 </div>

@@ -1,5 +1,5 @@
 //Login Module Starts Here
-//Created by: ManyaSK
+
 //Date: 06-August-2015
 
 var Login = angular.module("LoginModule", [])
@@ -87,39 +87,174 @@ ChangePwd.controller("ChangePwdController", function ($scope, $http, jsonFilter)
 var hospit = angular.module("HospitalModule", [])
 hospit.controller("HospitalController", function ($scope, $http, jsonFilter) {
 	
+	$scope.add_form=true;
+	$scope.list=true;
+	$scope.add_but=true;
+	$scope.add_hospitalbut=true;
+	
 	//$scope.url = 'hospital_proc.php';
 	var logResult = function (data, status, headers, config) {
 		return data;
 	};
 	
-	$scope.submitData = function (UHospital) {
+	
+	
+	$scope.add_hospital=function () {
+		$scope.add_form=true;
+	    $scope.list=true;
+	    $scope.add_but=true;
+		
+		
+	}
+	
+	$scope.submitData = function () {
+		$scope.update_hos=false;
 		var answer = confirm("Do you want to Submit?")
 		if (!answer) {
-			alert ("Hi");
+			
 		}
 		else{
-			
-		var config = {
-			params: {
-				UHospital: UHospital
-			}
-		};
 		
-		$http.post("hospital_proc.php", null, config)
-		.success(function (data, status, headers, config) {	
-            //data = jsonFilter(data);
-			$scope.getHospitalResult = logResult(data, status, headers, config);
-			{
-				window.location.href="list_hospital.php";
-			}
-			
-		})
-		
-		.error(function (data, status, headers, config) {
-			$scope.getHospitalResult = logResult(data, status, headers, config);
-		});
+	       $http.post('adddb_hospital.php', 
+                    {
+                        'id'       : $scope.id,
+                        'hname'    : $scope.hname, 
+                          'address'    :   $scope.address ,
+                          'city'    :     $scope.city,
+                           'State1'   :    $scope.State1,
+                            'pin'  :   $scope.pin,
+                            'emailid'  :   $scope.emailid,
+                             'phno' :   $scope.phno 
+                       
+                    }
+                  )
+                .success(function (data, status, headers, config) { 
+				// alert(data);
+                   alert("Data has been Added Successfully");                
+                 window.location.href="hospital.php";
+                   
+                })
+                .error(function(data, status, headers, config){
+
+                });
 		}
+		
+		
+		
+		
 	};
+	
+	
+	
+	
+	//List of hospital
+		$scope.get_hospital = function(){
+			$scope.list=false;
+	       $scope.add_form=false;
+    $http.get("load_hospital.php").success(function(data)
+    {
+		
+        //$scope.product_detail = data;   
+        $scope.pagedItems = data;    
+        $scope.currentPage = 1; //current page
+        $scope.entryLimit = 5; //max no of items to display in a page
+        
+ 
+    });
+    
+		}
+		
+		
+		
+//edit part of hospital
+//13.8.15
+	$scope.edit_hospital = function(index) { 
+	
+			$scope.update_hos=true;
+			$scope.list=true;
+	       $scope.add_form=true;
+			$scope.add_but=false;
+      
+$http.post('editdb_hospital.php', { 'id' :index}) 
+.success(function (data, status, headers, config) { 
+alert(data[0]["hname"]);
+$scope.id = data[0]["id"];
+$scope.hname = data[0]["hname"];
+$scope.address = data[0]["address"];
+$scope.city = data[0]["city"];
+$scope.State1 = data[0]["State1"];
+$scope.pin = data[0]["pin"];
+$scope.emailid = data[0]["emailid"];
+$scope.phno = data[0]["phno"];
+})
+ 
+.error(function(data, status, headers, config){
+ 
+});
+}
+	
+	// code for update of hospital
+	
+	 $scope.update_hospital = function() {
+ var y = confirm("DO you want update ?");
+     if(y){
+        $http.post('updatedb_hospital.php', 
+                    {
+                        'id'       : $scope.id,
+                        'hname'    : $scope.hname, 
+                          'address'    :   $scope.address ,
+                          'city'    :     $scope.city,
+                           'State1'   :    $scope.State1,
+                            'pin'  :   $scope.pin,
+                            'emailid'  :   $scope.emailid,
+                             'phno' :   $scope.phno 
+                       
+                    }
+                  )
+                .success(function (data, status, headers, config) { 
+                    alert("Data has been Updated Successfully");                
+                   window.location.href="hospital.php";
+                   
+                })
+                .error(function(data, status, headers, config){
+
+                });
+	 }
+	 else{
+		 
+		  window.location.href="hospital.php";
+	 }
+	
+			
+			
+	 
+    }
+	
+	/** function to delete hospital from list of hospital referencing php **/
+ 
+    $scope.delete_hospital = function(index) {  
+     var x = confirm("DO you want to delete the record ?");
+     if(x){
+      $http.post('deletedb_hospital.php', 
+            {
+                'id'     : index
+            }
+        )      
+        .success(function (data, status, headers, config) {               
+             
+             alert("You have deleted Successfully");
+			   window.location.href="hospital.php"; 
+        })
+ 
+        .error(function(data, status, headers, config){
+           
+        });
+      }else{
+            
+			 window.location.href="hospital.php";
+			
+      }
+    }
 	
 	
 	$scope.cancelData=function()
@@ -143,66 +278,159 @@ hospit.controller("HospitalController", function ($scope, $http, jsonFilter) {
 // hospital Module Ends Here
 
 
+
+
 //created by:pallavi
-//List of Hospital Starts Here
-//11.8.15
-var hospitallist = angular.module("ListHospitalModule", [])
-hospitallist.controller("ListHospitalController", function ($scope, $http) {
+//Designation add form Module Starts Here
+
+var design = angular.module("DesignModule", [])
+design.controller("DesignController", function ($scope, $http) {
 	
-	$scope.get_product = function(){
-    $http.get("db.php?action=get_product").success(function(data)
+	 $scope.add_design=true;
+	 
+	var logResult = function (data, status, headers, config) {
+		return data;
+	};
+	
+	
+	// add designation code
+	$scope.submitData = function () {
+		
+		
+		$scope.update_design=false;
+		
+		var answer = confirm("Do you want to Submit?")
+		if (!answer) {
+			        
+                  window.location.href="design.php";       
+		}
+		else{
+		
+	       $http.post('adddb_designation.php', 
+                    {
+                        
+                        'name'    : $scope.name, 
+                         'address'    :   $scope.address 
+                         
+                       
+                    }
+                  )
+                .success(function (data, status, headers, config) { 
+				
+                   alert("Data has been Added Successfully");  
+              window.location.href="design.php";				   
+                 
+                   
+                })
+                .error(function(data, status, headers, config){
+
+                });
+				           
+                   
+		}
+	};
+	
+	     //List of Designation
+	$scope.get_designation = function(){
+			
+	      
+    $http.get("load_designation.php").success(function(data)
     {
 		
-        //$scope.product_detail = data;   
         $scope.pagedItems = data;    
         $scope.currentPage = 1; //current page
         $scope.entryLimit = 5; //max no of items to display in a page
         
  
     });
+    
+		}
+		
+		
+//edit part of designation
+//14.8.15
+	$scope.edit_design = function(index) { 
+	
+			$scope.update_design=true;
+		   $scope.add_design=false;
+      
+$http.post('editdb_designation.php', { 'id' :index}) 
+.success(function (data, status, headers, config) { 
+alert(data[0]["name"]);
+$scope.id = data[0]["id"];
+$scope.name = data[0]["name"];
+$scope.address = data[0]["description"];
+
+})
+ 
+.error(function(data, status, headers, config){
+ 
+});
+}
+	
+	// code for update of designation
+	
+	 $scope.update_designation = function() {
+ var y = confirm("DO you want update ?");
+     if(y){
+        $http.post('updatedb_designation.php', 
+                    {
+                        'id'       : $scope.id,
+                        'name'    : $scope.name, 
+                          'address'    :   $scope.address ,
+                          
+                       
+                    }
+                  )
+                .success(function (data, status, headers, config) { 
+                    alert("Data has been Updated Successfully");                
+                  window.location.href="design.php"; 
+                   
+                })
+                .error(function(data, status, headers, config){
+
+                });
+	 }
+	 else{
+		 
+	 }
+	
+			
+			
+	 
     }
 	
-});
-
-//list of hospital ends here
-
-//created by:pallavi
-//Designation add form Module Starts Here
-
-var design = angular.module("DesignModule", [])
-design.controller("DesignController", function ($scope, $http, jsonFilter) {
 	
-	$scope.url='design_proc.php';
-	var logResult = function (data, status, headers, config) {
-		return data;
-	};
 	
-	$scope.submitData = function (UDesign) {
-		
-		var answer = confirm("Do you want to Submit?")
-		if (!answer) {
-			alert ("Hi");
-		}
-		else{
+	
+	/** function to delete designation from list of designation referencing php **/
+ 
+    $scope.delete_design = function(index) {  
+     var x = confirm("DO you want to delete the record ?");
+     if(x){
+      $http.post('deletedb_designation.php', 
+            {
+                'id'     : index
+            }
+        )      
+        .success(function (data, status, headers, config) {               
+             
+             alert("You have deleted Successfully");
+			  window.location.href="design.php"; 
+        })
+ 
+        .error(function(data, status, headers, config){
+           
+        });
+      }else{
+            
+			 window.location.href="design.php"; 
 			
-		var config = {
-			params: {
-				UDesign: UDesign
-			}
-		};
-		
-		$http.post($scope.url, null, config)
-		.success(function (data, status, headers, config) {	
-           // data = jsonFilter(data);
-			$scope.getDesignResult = logResult(data, status, headers, config);
-			
-		})
-		
-		.error(function (data, status, headers, config) {
-			$scope.getDesignResult = logResult(data, status, headers, config);
-		});
-		}
-	};
+      }
+    }
+ 
+	
+	/*************************/
 	
 	
 	$scope.cancelData=function()
@@ -223,7 +451,7 @@ design.controller("DesignController", function ($scope, $http, jsonFilter) {
 	
 });
 
-//Add Designation Module Ends Here
+// Designation Module Ends Here
 
 
 
@@ -232,39 +460,168 @@ design.controller("DesignController", function ($scope, $http, jsonFilter) {
 //Branch add form Module Starts Here
 
 var branch = angular.module("BranchModule", [])
-branch.controller("BranchController", function ($scope, $http, jsonFilter) {
+branch.controller("BranchController", function ($scope, $http ) {
+	     
+			$scope.list=true;
+	       $scope.add_form=true;
+			$scope.add_but=false;
+			$scope.add_branchbut=true;
 	
-	$scope.url='branch_proc.php';
 	var logResult = function (data, status, headers, config) {
 		return data;
 	};
-	
-	$scope.submitData = function (UBranch) {
+	$scope.add_branch=function () {
+		$scope.add_form=true;
+	    $scope.list=true;
+	    $scope.add_but=true;
 		
+		
+	}
+	
+	$scope.submitData = function () {
+		$scope.update_br=false;
 		var answer = confirm("Do you want to Submit?")
 		if (!answer) {
-			alert ("Hi");
+			
 		}
 		else{
-			
-		var config = {
-			params: {
-				UBranch: UBranch
-			}
-		};
 		
-		$http.post($scope.url, null, config)
-		.success(function (data, status, headers, config) {	
-           // data = jsonFilter(data);
-			$scope.getBranchResult = logResult(data, status, headers, config);
-			
-		})
-		
-		.error(function (data, status, headers, config) {
-			$scope.getBranchResult = logResult(data, status, headers, config);
-		});
+	       $http.post('adddb_branch.php', 
+                    {
+                        'id'       : $scope.id,
+                        'name'    : $scope.name, 
+                          'address'    :   $scope.address ,
+                          'city'    :     $scope.city,
+                           'State1'   :    $scope.State1,
+                            'pin'  :   $scope.pin,
+                            'emailid'  :   $scope.emailid,
+                             'phno' :   $scope.phno 
+                       
+                    }
+                  )
+                .success(function (data, status, headers, config) { 
+				// alert(data);
+                   alert("Data has been Added Successfully");                
+                 window.location.href="branch.php";
+                   
+                })
+                .error(function(data, status, headers, config){
+
+                });
 		}
+		
+		
+		
+		
 	};
+	
+	
+	
+	
+	//List of branch
+		$scope.get_branch = function(){
+		$scope.list=false;
+	      $scope.add_form=false;
+    $http.get("load_branch.php").success(function(data)
+    {
+		
+        
+        $scope.pagedItems = data;    
+        $scope.currentPage = 1; //current page
+        $scope.entryLimit = 5; //max no of items to display in a page
+        
+ 
+    });
+    
+		}
+		
+		//edit part of branch
+//14.8.15
+	$scope.edit_branch = function(index) { 
+	
+			 $scope.update_br=true;
+			$scope.list=true;
+	       $scope.add_form=true;
+			$scope.add_but=false;
+      
+$http.post('editdb_branch.php', { 'id' :index}) 
+.success(function (data, status, headers, config) { 
+alert(data[0]["name"]);
+$scope.id = data[0]["id"];
+$scope.name = data[0]["name"];
+$scope.address = data[0]["address"];
+$scope.city = data[0]["city"];
+$scope.State1 = data[0]["State1"];
+$scope.pin = data[0]["pin"];
+$scope.emailid = data[0]["emailid"];
+$scope.phno = data[0]["phno"];
+})
+ 
+.error(function(data, status, headers, config){
+ 
+});
+}
+	
+	// code for update of branch
+	
+	 $scope.update_branch = function() {
+		 
+ var y = confirm("DO you want update ?");
+     if(y){
+        $http.post('updatedb_branch.php', 
+                    {
+                        'id'       : $scope.id,
+                        'name'    : $scope.name, 
+                          'address'    :   $scope.address ,
+                          'city'    :     $scope.city,
+                           'State1'   :    $scope.State1,
+                            'pin'  :   $scope.pin,
+                            'emailid'  :   $scope.emailid,
+                             'phno' :   $scope.phno 
+                       
+                    }
+                  )
+                .success(function (data, status, headers, config) { 
+                    alert("Data has been Updated Successfully");                
+                 window.location.href="branch.php";   
+                   
+                })
+                .error(function(data, status, headers, config){
+
+                });
+	 }
+	 else{
+		 
+	 }
+	
+			
+	 
+    }
+	/** function to delete branch from list of branch referencing php **/
+ 
+    $scope.delete_branch = function(index) {  
+     var x = confirm("DO you want to delete the record ?");
+     if(x){
+      $http.post('deletedb_branch.php', 
+            {
+                'id'     : index
+            }
+        )      
+        .success(function (data, status, headers, config) {               
+             
+             alert("You have deleted Successfully");
+			  window.location.href="branch.php"; 
+        })
+ 
+        .error(function(data, status, headers, config){
+           
+        });
+      }else{
+            
+			 window.location.href="branch.php"; 
+			
+      }
+    }
 	
 	
 	$scope.cancelData=function()
@@ -294,38 +651,153 @@ branch.controller("BranchController", function ($scope, $http, jsonFilter) {
 var specialization = angular.module("SpecializationModule", [])
 specialization.controller("SpecializationController", function ($scope, $http, jsonFilter) {
 	
-	$scope.url='special_proc.php';
+	
+	
+	  $scope.add_spec=true;
 	var logResult = function (data, status, headers, config) {
 		return data;
 	};
 	
-	$scope.submitData = function (USpecialization) {
+	
+	// add the specialization data
+		$scope.submitData = function () {
+		$scope.update_spec=false;
 		
 		var answer = confirm("Do you want to Submit?")
 		if (!answer) {
-			alert ("Hi");
+			        
+                  window.location.href="specialization.php";       
 		}
 		else{
-			
-		var config = {
-			params: {
-				USpecialization: USpecialization
-			}
-		};
 		
-		$http.post($scope.url, null, config)
-		.success(function (data, status, headers, config) {	
-           // data = jsonFilter(data);
-			$scope.getSpecialResult = logResult(data, status, headers, config);
-			
-		})
-		
-		.error(function (data, status, headers, config) {
-			$scope.getSpecialResult = logResult(data, status, headers, config);
-		});
+	       $http.post('adddb_specilization.php', 
+                    {
+                        'id'       : $scope.id,
+                        'name'    : $scope.name, 
+                         'address'    :   $scope.address 
+                         
+                       
+                    }
+                  )
+                .success(function (data, status, headers, config) { 
+				// alert(data);
+                   alert("Data has been Added Successfully");  
+              window.location.href="specialization.php";				   
+                 
+                   
+                })
+                .error(function(data, status, headers, config){
+
+                });
+				           
+                       
 		}
+		
+		
+		
+		
 	};
 	
+	//List of specialization
+		$scope.get_special = function(){
+			
+	      
+    $http.get("load_specialization.php").success(function(data)
+    {
+		
+        $scope.pagedItems = data;    
+        $scope.currentPage = 1; //current page
+        $scope.entryLimit = 5; //max no of items to display in a page
+        
+ 
+    });
+    
+		}
+	
+	
+//edit part of specialization
+
+//14.8.15
+$scope.edit_special = function(index) { 
+	
+			 $scope.update_spec=true;
+			 $scope.add_spec=false;
+      
+$http.post('editdb_specialization.php', { 'id' :index}) 
+.success(function (data, status, headers, config) { 
+alert(data[0]["name"]);
+$scope.id = data[0]["id"];
+$scope.name = data[0]["name"];
+$scope.address = data[0]["description"];
+
+})
+ 
+.error(function(data, status, headers, config){
+ 
+});
+}
+
+
+// update code for specialization
+ $scope.update_special = function() {
+ var y = confirm("DO you want update ?");
+     if(y){
+        $http.post('updatedb_specialization.php', 
+                    {
+                        'id'       : $scope.id,
+                        'name'    : $scope.name, 
+                          'address'    :   $scope.address ,
+                          
+                       
+                    }
+                  )
+                .success(function (data, status, headers, config) { 
+                    alert("Data has been Updated Successfully");  
+                   				
+                 // $scope.get_special();
+				 window.location.href="specialization.php";
+				 
+				  
+                   
+                })
+                .error(function(data, status, headers, config){
+
+                });
+				
+				 
+				 
+	 }
+	 else{
+		 
+		        
+		 
+	 }
+ 
+    }
+	/** function to delete specialization from list of specialization referencing php **/
+ 
+    $scope.delete_special = function(index) {  
+     var x = confirm("DO you want to delete record ?");
+     if(x){
+      $http.post('deletedb_specialization.php', 
+            {
+                'id'     : index
+            }
+        )      
+        .success(function (data, status, headers, config) {               
+             
+             alert("You have deleted record Successfully");
+			 window.location.href="specialization.php";
+        })
+ 
+        .error(function(data, status, headers, config){
+           
+        });
+      }else{
+            
+			
+      }
+    }
 	
 	$scope.cancelData=function()
 	{
@@ -345,72 +817,48 @@ specialization.controller("SpecializationController", function ($scope, $http, j
 	
 });
 
-//Add Specialization Module Ends Here
+// Specialization Module Ends Here
 
 
 
+
+
+// Surgeryform starts Here
 
 //created by:pallavi
-//Surgeryform Module Starts Here
+//13-AUG-15
 
-var surgery = angular.module("SurgeryModule", [])
-surgery.controller("SurgeryController", function ($scope, $http, jsonFilter) {
+var listApp = angular.module('listpp', []);    
+ 
+    listApp.controller('PhoneListCtrl', function ($scope, $http) {
 	
-	$scope.url='surgery_proc.php';
-	var logResult = function (data, status, headers, config) {
-		return  data ;
-	};
 	
-	$scope.submitData = function (USurgery) {
+	      $scope.add_sur = true;
+		$scope.surgery_submit = function() {
+			$scope.update_prod = false;
+        $http.post('surgerydb.php?action=add_surgery', 
+            {
+                'name'     : $scope.name, 
+                'address'     : $scope.address, 
+                'fees'    : $scope.fees
+                
+            }
+        )
+        .success(function (data, status, headers, config) {
+          alert(JSON.stringify(data));
+         window.location.href="surgery.php";
+ 
+        })
+ 
+        .error(function(data, status, headers, config){
+           
+        });
 		
-		var answer = confirm("Do you want to Submit?")
-		if (!answer) {
-			alert ("Hi");
-		}
-		else{
-			
-		var config = {
-			params: {
-				USurgery: USurgery
-			}
-		};
-		
-		$http.post($scope.url, null, config)
-		.success(function (data, status, headers, config) {	
-           // data = jsonFilter(data);
-			$scope.getSurgeryResult = logResult(data, status, headers, config);
-			
-		})
-		
-		.error(function (data, status, headers, config) {
-			$scope.getSurgeryResult = logResult(data, status, headers, config);
-		});
-		}
-	};
+    }
+ 
+ //function to check the uniqueness of the surgery name
 	
-	
-	
-	
-	$scope.cancelData=function()
-	{
-		var agree=confirm("Do you want to Cancel?");
-		
-		if(agree)
-		{
-			alert("hi");
-		}
-		else
-		{
-			alert("hello");
-			
-		}
-		
-	};
-	
-	
-	//function to check the uniqueness of the surgery name
-	
-	$scope.changeSurgery=function(USurgery){
+	$scope.changeSurgery=function(name){
 		var config = {
         params: {
           USurgery: USurgery
@@ -424,10 +872,107 @@ surgery.controller("SurgeryController", function ($scope, $http, jsonFilter) {
 		
 		
 	};
+ 
+ 
+ //list of Surgery
+ 
+  $scope.get_surgery = function(){
+    $http.get("surgerydb.php?action=get_surgery").success(function(data)
+    {
+        //$scope.product_detail = data;   
+        $scope.pagedItems = data;    
+        $scope.currentPage = 1; //current page
+        $scope.entryLimit = 5; //max no of items to display in a page
+        $scope.filteredItems = $scope.pagedItems.length; //Initially for no filter  
+        $scope.totalItems = $scope.pagedItems.length;
+ 
+    });
+    }
+    $scope.setPage = function(pageNo) {
+        $scope.currentPage = pageNo;
+    };
+    
+    
+	//edit part
+	$scope.edit_surgery = function(index) { 
 	
-});
+			$scope.update_prod = true;
+			$scope.add_sur = false;
+      
+$http.post('surgerydb.php?action=edit_surgery', { 'id' :index}) 
+.success(function (data, status, headers, config) { 
+alert(data[0]["name"]);
+$scope.id = data[0]["id"];
+$scope.name = data[0]["name"];
+$scope.address = data[0]["address"];
+$scope.fees = data[0]["fees"];
 
-//Add Surgeryform Module Ends Here
+ 
+})
+ 
+.error(function(data, status, headers, config){
+ 
+});
+}
+
+
+ /** function to update surgery details after edit from list of surgery referencing php **/
+
+    $scope.update_surgery = function() {
+ var y = confirm("DO you want update ?");
+     if(y){
+        $http.post('surgerydb.php?action=update_surgery', 
+                    {
+                        'id'            : $scope.id,
+                        'name'     : $scope.name, 
+                        'address'     : $scope.address, 
+                        'fees'    : $scope.fees
+                       
+                    }
+                  )
+                .success(function (data, status, headers, config) {                 
+                 
+                   alert("Data has been Updated Successfully");
+				   window.location.href="surgery.php";
+                })
+                .error(function(data, status, headers, config){
+
+                });
+	 }
+	 else{
+		 
+	 }
+    }
+
+   
+	
+	/** function to delete surgery from list of surgery referencing php **/
+ 
+    $scope.delete_surgery = function(index) {  
+     var x = confirm("DO you want to delete surgery name ?");
+     if(x){
+      $http.post('surgerydb.php?action=delete_surgery', 
+            {
+                'id'     : index
+            }
+        )      
+        .success(function (data, status, headers, config) {               
+            
+             alert("You have deleted Successfully");
+			 window.location.href="surgery.php";
+        })
+ 
+        .error(function(data, status, headers, config){
+           
+        });
+      }else{
+            
+			
+      }
+    }
+ 
+ 
+});
 
 
 
@@ -438,40 +983,58 @@ surgery.controller("SurgeryController", function ($scope, $http, jsonFilter) {
 var employee = angular.module("EmployeeModule", [])
 employee.controller("EmployeeController", function ($scope, $http, jsonFilter) {
 	
-	
-	
-	
-	$scope.url='addemployee_proc.php';
 	var logResult = function (data, status, headers, config) {
 		return data;
 	};
 	
-	$scope.submitData = function (UEmployee) {
+	// add the employee data
+		$scope.submitData = function () {
 		
 		var answer = confirm("Do you want to Submit?")
 		if (!answer) {
-			alert ("Hi");
+			        
+                  window.location.href="addemployee.php";       
 		}
 		else{
-			
-		var config = {
-			params: {
-				UEmployee: UEmployee
-			}
-		};
 		
-		$http.post($scope.url, null, config)
-		.success(function (data, status, headers, config) {	
-           // data = jsonFilter(data);
-			$scope.getEmployeeResult = logResult(data, status, headers, config);
-			
-			
-		})
-		
-		.error(function (data, status, headers, config) {
-			$scope.getEmployeeResult = logResult(data, status, headers, config);
-		});
+	       $http.post('addemployee_proc.php', 
+                    {
+                        
+                        'name'    : $scope.name, 
+                         'dob'    :   $scope.dob,
+						  'bgroup'    :   $scope.bgroup,
+						   'doj'    :   $scope.doj,
+						    'address'    :   $scope.address,
+							 'city'    :   $scope.city,
+							 'State1'    :   $scope.State1,
+							  'pin'  :   $scope.pin,
+                            'emailid'  :   $scope.emailid,
+                             'phno' :   $scope.phno ,
+							  'selectedDesignation' :   $scope.selectedDesignation ,
+							'Qualification' :   $scope.Qualification ,
+							
+							 'selectedSpecial' :   $scope.selectedSpecial 
+                         
+                       
+                    }
+                  )
+                .success(function (data, status, headers, config) { 
+				alert(JSON.stringify(data);
+                   alert("Data has been Added Successfully");  
+              window.location.href="addemployee.php";				   
+                 
+                   
+                })
+                .error(function(data, status, headers, config){
+
+                });
+				           
+                       
 		}
+		
+		
+		
+		
 	};
 	
 	

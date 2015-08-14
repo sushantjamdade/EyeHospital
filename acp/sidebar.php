@@ -32,7 +32,7 @@
 								<li><a href="surgery.php">Surgery</a></li>
 								<li><a href="addemployee.php">Employee</a></li>
 								<li><a href="addoptometrist.php">Optemetrist</a></li>
-								<li><a href="list_hospital.php">List Hospital Form</a></li>
+								
 								
 								<li><a href="#">Invoice</a></li>
 								<li><a href="#">Inbox</a></li>

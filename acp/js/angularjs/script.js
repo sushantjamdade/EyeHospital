@@ -834,6 +834,7 @@ var listApp = angular.module('listpp', []);
 	
 	
 	      $scope.add_sur = true;
+		  
 		$scope.surgery_submit = function() {
 			$scope.update_prod = false;
         $http.post('surgerydb.php?action=add_surgery', 
@@ -974,111 +975,64 @@ $scope.fees = data[0]["fees"];
  
 });
 
+//***
 
+// Complaint Master starts Here
 
-//created by:pallavi
-//10-AUG-15
-//add employee Module Starts Here
+//created by:Sushant
+//17-AUG-15
 
-var employee = angular.module("EmployeeModule", [])
-employee.controller("EmployeeController", function ($scope, $http, jsonFilter) {
-	
-	var logResult = function (data, status, headers, config) {
-		return data;
-	};
-	
-	// add the employee data
-		$scope.submitData = function () {
-		
+var appComplaint = angular.module('appComplaint', []);    
+ 
+appComplaint.controller('ctrlComplaint', function ($scope, $http) {
+
+$scope.add_Complaint=true;	
+
+$scope.submitData = function () {
+		$scope.update_hos=false;
 		var answer = confirm("Do you want to Submit?")
 		if (!answer) {
-			        
-                  window.location.href="addemployee.php";       
+			
 		}
 		else{
 		
-	       $http.post('addemployee_proc.php', 
+	       $http.post('addComplaint.php', 
                     {
-                        
-                        'name'    : $scope.name, 
-                         'dob'    :   $scope.dob,
-						  'bgroup'    :   $scope.bgroup,
-						   'doj'    :   $scope.doj,
-						    'address'    :   $scope.address,
-							 'city'    :   $scope.city,
-							 'State1'    :   $scope.State1,
-							  'pin'  :   $scope.pin,
-                            'emailid'  :   $scope.emailid,
-                             'phno' :   $scope.phno ,
-							  'selectedDesignation' :   $scope.selectedDesignation ,
-							'Qualification' :   $scope.Qualification ,
-							
-							 'selectedSpecial' :   $scope.selectedSpecial 
-                         
+                        'complaint':$scope.complaint,
+                        'description':$scope.description 
                        
                     }
                   )
                 .success(function (data, status, headers, config) { 
-				alert(JSON.stringify(data);
-                   alert("Data has been Added Successfully");  
-              window.location.href="addemployee.php";				   
-                 
+				 //alert(jscon.stringify(data));
+                  alert("Data has been Added Successfully");                
+                 window.location.href="complaint.php";
                    
                 })
                 .error(function(data, status, headers, config){
 
                 });
-				           
-                       
 		}
-		
-		
-		
-		
 	};
 	
 	
-	$scope.cancelData=function()
-	{
-		var agree=confirm("Do you want to Cancel?");
-		
-		if(agree)
-		{
-			alert("hi");
-		}
-		else
-		{
-			alert("hello");
-			
-		}
-		
-	};
-	
-	//dropdown for designation
-	$scope.selectedDesignation = null;
-    $scope.designAccounts = [];
-
-    $http({
-            method: 'GET',
-            url: 'get_designation.php',
-            data: { applicationId: 3 }
-        }).success(function (result) {
-        $scope.designAccounts = result;
+	//List of Complaint
+ 
+  $scope.get_surgery = function(){
+    $http.get("surgerydb.php?action=get_surgery").success(function(data)
+    {
+        //$scope.product_detail = data;   
+        $scope.pagedItems = data;    
+        $scope.currentPage = 1; //current page
+        $scope.entryLimit = 5; //max no of items to display in a page
+        $scope.filteredItems = $scope.pagedItems.length; //Initially for no filter  
+        $scope.totalItems = $scope.pagedItems.length;
     });
-    
-	
-	//dropdown for Specialization
-	$scope.selectedSpecial = null;
-    $scope.specialAccounts = [];
-
-    $http({
-            method: 'GET',
-            url: 'get_specialisation.php',
-            data: { applicationId: 3 }
-        }).success(function (result) {
-        $scope.specialAccounts = result;
-    });
-	
+    }
+    $scope.setPage = function(pageNo) {
+        $scope.currentPage = pageNo;
+    };
+ 
 });
 
-//Add Employee Module Ends Here
+

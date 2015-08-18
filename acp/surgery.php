@@ -36,7 +36,7 @@ else
                         <div class="col-md-12 col-sm-12 col-xs-12">
                             <div class="x_panel">
                                 <div class="x_title">
-                                    <h2>Add/Update Surgery<small>different form elements</small></h2>
+                                    <h2>Add Surgery</h2>
                                     <div class="clearfix"></div>
                                 </div>
                                 <div class="x_content">
@@ -78,8 +78,8 @@ else
                                         </div>
                                         
                                         <div class="form-group">
-                                          <button type="submit" name="add"  class="btn btn-success" ng-disabled="SurgeryForm.$invalid" ng-show="add_sur"  ng-click="surgery_submit()" />Submit</button>
-                        <button  class="btn btn-success" ng-click="cancelData()" />cancel</button>
+                                <button type="submit" name="add"  class="btn btn-success" ng-disabled="SurgeryForm.$invalid" ng-show="add_sur"  ng-click="surgery_submit()" />Submit</button>
+								<button  class="btn btn-success" ng-click="cancelData()" />cancel</button>
                                 <button type="submit" class="btn btn-success"  name="update_surgery"  ng-show='update_prod' value="Update" ng-click="update_surgery()">Update</button>                  
 											
                                         </div>

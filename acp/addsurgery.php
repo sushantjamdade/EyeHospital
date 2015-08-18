@@ -43,7 +43,7 @@ var sortingOrder = 'name';
 
 <br/>
 <br/>
-<h4>Add /Update Surgery</h4>
+<h4>Add Complaints</h4>
 <form name="add_product">
 <input type="hidden" name="id" ng-model="id">
 <input type="text" name="name" ng-model="name" placeholder="Enter Surgery Name">

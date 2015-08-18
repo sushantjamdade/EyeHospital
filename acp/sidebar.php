@@ -30,6 +30,7 @@
 								<li><a href="branch.php">Branch</a></li>
 								<li><a href="specialization.php">Specialization</a></li>
 								<li><a href="surgery.php">Surgery</a></li>
+								<li><a href="complaint.php">Complaint</a></li>
 								<li><a href="addemployee.php">Employee</a></li>
 								<li><a href="addoptometrist.php">Optemetrist</a></li>
 								
